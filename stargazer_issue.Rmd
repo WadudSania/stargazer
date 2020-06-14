@@ -1,0 +1,138 @@
+---
+title: XXX
+documentclass: article
+date: "`r format(Sys.Date(),'%d %B, %Y')`"
+output:
+  pdf_document: 
+    df_print: paged
+    fig_caption: yes
+    highlight: tango
+    number_sections: yes
+    citation_package: natbib
+    keep_tex: yes
+bibliography: library.bib
+author: | 
+  XXX
+header-includes: 
+  \usepackage{amsmath} 
+  \usepackage[utf8]{inputenc} 
+  \usepackage{autobreak}   
+  \usepackage{setspace}
+  \doublespacing
+  \usepackage{hyperref} 
+  \usepackage[authoryear]{natbib} 
+  \usepackage{caption} 
+  \usepackage{babel} 
+  \usepackage{multirow}
+  \usepackage{pdflscape}
+  \usepackage{rotating, graphicx}
+  \usepackage{dcolumn}
+geometry: margin=1in
+BottomRFooter: \footnotesize Page \thepage\
+addtoprule: yes
+addfootrule: yes
+bottom: 2
+top: 2
+one_column: yes
+skip_final_break: yes
+watermark: no
+HardSet_layout: yes
+RemovePreprintSubmittedTo: no
+Journal: Energy Economics
+toc: yes
+fontsize: 12pt
+linestretch: 2
+link-citations: yes
+links-as-notes: true
+abstract: |
+  This paper examines  
+acknowledgements: "This work would not have been possible without the excellent \n"
+keywords: "Multivariate VAR DCC GARCH"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r ,echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+##################### FOR OLS OUTPUT #########################################
+
+library("stargazer")
+
+pre <- read.csv(file.choose()) 
+names(pre) <- c("abc vs XXXXX XXXX Contract 01", "abc vs XXXXX XXXX Contract 02", "abc vs XXXXX XXXX Contract 03","abc vs XXXXX XXXX Contract 04","Date","SI", "OI") 
+
+post <- read.csv(file.choose())
+names(post) <-  c("abc vs XXXXX XXXX Contract 01", "abc vs XXXXX XXXX Contract 02", "abc vs XXXXX XXXX Contract 03","abc vs XXXXX XXXX Contract 04","Date","SI", "OI")
+
+# OLS: conditional correlation ~ SI + OI
+
+#pre
+pre.ols.sp01SIOI <- lm(`abc vs XXXXX XXXX Contract 01`~ SI + OI, data=pre)
+pre.ols.sp02SIOI <- lm(`abc vs XXXXX XXXX Contract 02`~ SI + OI, data=pre)
+pre.ols.sp03SIOI <- lm(`abc vs XXXXX XXXX Contract 03`~ SI + OI, data=pre)
+pre.ols.sp04SIOI <- lm(`abc vs XXXXX XXXX Contract 04`~ SI + OI, data=pre)
+
+#post
+post.ols.sp01SIOI <- lm(`abc vs XXXXX XXXX Contract 01`~ SI + OI, data=post)
+post.ols.sp02SIOI <- lm(`abc vs XXXXX XXXX Contract 02`~ SI + OI, data=post)
+post.ols.sp03SIOI <- lm(`abc vs XXXXX XXXX Contract 03`~ SI + OI, data=post)
+post.ols.sp04SIOI <- lm(`abc vs XXXXX XXXX Contract 04`~ SI + OI, data=post)
+
+stargazer(pre.ols.sp01SIOI,pre.ols.sp02SIOI,pre.ols.sp03SIOI,pre.ols.sp04SIOI,post.ols.sp01SIOI,post.ols.sp02SIOI,post.ols.sp03SIOI,post.ols.sp04SIOI, style = "qje", header=FALSE,align =TRUE, title = "Regression Analysis between Conditional Correlation, Speculation Index and Open Interest" )
+
+```
+
+
+#### Error 
+
+when float.env = "sidewaystable" is used even though in YAML package is included 
+
+output file: stargazer_issue.knit.md
+! LaTeX Error: File `sidewaystable.sty' not found.
+
+! Emergency stop.
+<read *> 
+
+Error: LaTeX failed to compile stargazer_issue.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See stargazer_issue.log for more info.
+Execution halted
+
+#### when same code in run under the project file error is as follows
+
+output file: Paper1.v7_11Jun2020.knit.md
+
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit)
+entering extended mode
+I was unable to find any missing LaTeX packages from the error log Paper1.v7_11Jun2020.log.
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit)
+entering extended mode
+I was unable to find any missing LaTeX packages from the error log Paper1.v7_11Jun2020.log.
+Error: LaTeX failed to compile Paper1.v7_11Jun2020.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips.
+In addition: Warning messages:
+1: In readLines(log) : line 884 appears to contain an embedded nul
+2: In readLines(log) :
+  incomplete final line found on 'Paper1.v7_11Jun2020.log'
+3: In readLines(log) : line 884 appears to contain an embedded nul
+4: In readLines(log) :
+  incomplete final line found on 'Paper1.v7_11Jun2020.log'
+5: In readLines(log) : line 884 appears to contain an embedded nul
+6: In readLines(log) :
+  incomplete final line found on 'Paper1.v7_11Jun2020.log'
+Execution halted*
+
+#### if using 
+$\backslash$newpage $\backslash$blandscape $\backslash$elandscape then getting following error
+
+
+! Undefined control sequence.
+l.86 $\backslash$blandscape
+
+Error: LaTeX failed to compile stargazer_issue.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See stargazer_issue.log for more info.
+Execution halted
+
+
+
+
